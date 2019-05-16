@@ -38,7 +38,7 @@ public class XmlHandler
         try {
             File xmlFile = new File(fileName);
             if (!xmlFile.exists()) {
-                System.out.println("Could not find untXMLtest.xml");
+                System.out.println("Could not find " + fileName + " file!");
             }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
