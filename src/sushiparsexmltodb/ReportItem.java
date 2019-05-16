@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class ReportItem
 {
-
+    private int id;
     private String printIssn;
     private String onlineIssn;
     private String itemPlatform;
@@ -30,8 +30,22 @@ public class ReportItem
     private String itemPublisher;
     private Map<String, List<String>> itemPeriod;
 
+    public ReportItem(int id, String printIssn, String onlineIssn, String itemPlatform, String itemName, String itemDataType, String proprietary, String itemPublisher, Map<String, List<String>> itemPeriod)
+    {
+        this.id = id;
+        this.printIssn = printIssn;
+        this.onlineIssn = onlineIssn;
+        this.itemPlatform = itemPlatform;
+        this.itemName = itemName;
+        this.itemDataType = itemDataType;
+        this.proprietary = proprietary;
+        this.itemPublisher = itemPublisher;
+        this.itemPeriod = itemPeriod;
+    }
+
     public ReportItem(String printIssn, String onlineIssn, String itemPlatform, String itemName, String itemDataType, String proprietary, String itemPublisher, Map<String, List<String>> itemPeriod)
     {
+        id = -1;
         this.printIssn = printIssn;
         this.onlineIssn = onlineIssn;
         this.itemPlatform = itemPlatform;
@@ -44,6 +58,7 @@ public class ReportItem
 
     public ReportItem()
     {
+        id = -1;
         printIssn = "";
         onlineIssn = "";
         itemPlatform = "";
@@ -52,6 +67,11 @@ public class ReportItem
         proprietary = "";
         itemPublisher = "";
         itemPeriod = new HashMap();
+    }
+
+    public int getId()
+    {
+        return id;
     }
 
     public String getItemDataType()
@@ -72,6 +92,11 @@ public class ReportItem
     public String getProprietary()
     {
         return proprietary;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public void setItemDataType(String itemDataType)
