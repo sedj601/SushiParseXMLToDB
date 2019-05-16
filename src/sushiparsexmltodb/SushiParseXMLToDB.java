@@ -34,8 +34,9 @@ public class SushiParseXMLToDB
                 System.out.println("\tItem Publisher: " + reportItem.getItemPublisher());
                 System.out.println("\tItem Name: " + reportItem.getItemName());
                 System.out.println("\tItem Data Type: " + reportItem.getItemDataType());
+                System.out.println("\tDate: ");
                 reportItem.getItemPeriod().forEach((key, value) -> {
-                    System.out.println("\tDate: " + key + ": " + String.join(", ", value));
+                    System.out.println("\t\t " + key + ": " + String.join(", ", value));
                 });
                 System.out.println("");
             });
