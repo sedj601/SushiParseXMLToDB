@@ -5,6 +5,9 @@
  */
 package sushiparsexmltodb;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  *
  * @author blj0011
@@ -18,8 +21,10 @@ public class SushiParseXMLToDB
     public static void main(String[] args)
     {
         // TODO code application logic here
-        XmlHandler xmlHandler = new XmlHandler("untXMLtest.xml");
-//        List<Customer> customers = xmlHandler.getCustomers();
+        XmlHandler xmlHandler = new XmlHandler("output2019.xml");//"untXMLtest.xml");
+        List<Customer> customers = xmlHandler.getCustomers();
+        
+        //Get customer info
 //        customers.forEach(customer -> {
 //            System.out.println("Customer Name:" + customer.getName());
 //            System.out.println("Customer ID: " + customer.getId());
@@ -41,11 +46,22 @@ public class SushiParseXMLToDB
 //        });
 
         DatabaseHandler dbHandler = new DatabaseHandler();
+        
+        //Insert on at a time
 //        customers.get(0).getReportItems().forEach((reportItem) -> {
-//            dbHandler.insertReportItem(reportItem);
+//            if(counter.getAndIncrement() < 10)
+//            {
+//                dbHandler.insertReportItem(reportItem);
+//            }
 //        });
 
+        //Batch process 
+       //dbHandler.insertBatchReportItems(customers.get(0).getReportItems());
+       
+       //Print out
         dbHandler.getReportItem().forEach(System.out::println);
+        
+        //Close db connection
         dbHandler.closeConnection();
 
     }
