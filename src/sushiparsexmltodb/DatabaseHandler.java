@@ -11,8 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -21,6 +25,9 @@ import java.util.Map;
  */
 public class DatabaseHandler
 {
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM yyyy");
+    private final DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM");
+
     Connection connection;
 
     public DatabaseHandler()
@@ -108,13 +115,12 @@ public class DatabaseHandler
             for (int i = 0; i < reportItems.size(); i++) {
                 for (Map.Entry<String, List<String>> period : reportItems.get(i).getItemPeriod().entrySet()) {
                     
-                    int lastDateId = getLastInsertTableId("DateTbl");
                     String ftHtml = (Integer.parseInt(period.getValue().get(0)) > -1) ? period.getValue().get(0) : "0";
                     String ftPdf = (Integer.parseInt(period.getValue().get(1)) > -1) ? period.getValue().get(1) : "0";
                     String ftTotal = (Integer.parseInt(period.getValue().get(2)) > -1) ? period.getValue().get(2) : "0";
                     
                     pstmt2.setInt(1, reportItems.get(i).getId());
-                    pstmt2.setString(2, period.getKey());
+                    pstmt2.setString(2, formatDateToDbDate(period.getKey()));
                     pstmt2.setString(3, ftHtml);
                     pstmt2.setString(4, ftPdf);
                     pstmt2.setString(5, ftTotal);
@@ -178,7 +184,7 @@ public class DatabaseHandler
                  ResultSet rset = stmt.executeQuery(sqlQueryString2)) {
 
                 while (rset.next()) {
-                    String monthYear = rset.getString("month_year");
+                    String monthYear = formatDateFromDbDate(rset.getString("month_year"));
                     List<String> tempList = new ArrayList();
 
                     tempList.add(rset.getString("ft_html"));
@@ -232,7 +238,7 @@ public class DatabaseHandler
 
         try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryString)) {
             pstmt.setInt(1, lastId);
-            pstmt.setString(2, monthYear);
+            pstmt.setString(2, formatDateToDbDate(monthYear));
             pstmt.setInt(3, Integer.parseInt(ft_html));
             pstmt.setInt(4, Integer.parseInt(ft_pdf));
             pstmt.setInt(5, Integer.parseInt(ft_total));
@@ -245,6 +251,24 @@ public class DatabaseHandler
         }
 
         return true;
+    }
+    
+    
+    /*
+    
+    */
+    private String formatDateToDbDate(String monthYear)
+    {
+        YearMonth yearMonth = YearMonth.parse(monthYear, dateTimeFormatter);
+        
+        return yearMonth.toString();
+    }
+    
+    private String formatDateFromDbDate(String yearMonth)
+    {
+        YearMonth yearMonth2 = YearMonth.parse(yearMonth, dateTimeFormatter2);
+        
+        return yearMonth2.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + yearMonth2.getYear();
     }
 
 //    private boolean insertIntoMetricTable(int lastDateId, String ftHtmlValue, String ftPdfValue, String ftTotalValue)
