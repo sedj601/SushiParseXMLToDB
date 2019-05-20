@@ -44,9 +44,10 @@ public class SushiParseXMLToDB
 //            });
 //        });
 
+        //Create new database handler
         DatabaseHandler dbHandler = new DatabaseHandler();
         
-//        //Insert one at a time
+//        //Insert one report item at a time. This code loops through all the report items in the XML file and adds them to the database one at a time. It's a very slow way to populate a database
 //        AtomicInteger counter = new AtomicInteger();
 //        customers.get(0).getReportItems().forEach((reportItem) -> {
 //            if(counter.getAndIncrement() < 10)
@@ -55,15 +56,18 @@ public class SushiParseXMLToDB
 //            }
 //        });
 
-        //Batch process 
-       dbHandler.insertBatchReportItems(customers.get(0).getReportItems());
+//        //Batch process: insert many report items. This takes a List of ReportItems: List<ReportItem>. This is a very fast way to import all the report items in the XML file into a database compared to the way above.
+//       dbHandler.insertBatchReportItems(customers.get(0).getReportItems());
        
-       //Print out
-        dbHandler.getReportItem().forEach(System.out::println);
+        //Get a List of all ReportItems from the database. This codes gets a list of all the report items in the database. It then loops through the list and prints each item.
+        List<ReportItem> reportItemsFromDb = dbHandler.getReportItem();
+        for(ReportItem reportItem : reportItemsFromDb)
+        {
+            System.out.println(reportItem);
+        }
         
         //Close db connection
         dbHandler.closeConnection();
-
     }
 
 }

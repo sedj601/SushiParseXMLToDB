@@ -252,11 +252,7 @@ public class DatabaseHandler
 
         return true;
     }
-    
-    
-    /*
-    
-    */
+        
     private String formatDateToDbDate(String monthYear)
     {
         YearMonth yearMonth = YearMonth.parse(monthYear, dateTimeFormatter);
@@ -270,24 +266,4 @@ public class DatabaseHandler
         
         return yearMonth2.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + yearMonth2.getYear();
     }
-
-//    private boolean insertIntoMetricTable(int lastDateId, String ftHtmlValue, String ftPdfValue, String ftTotalValue)
-//    {
-//        String sqlQueryString = "INSERT INTO Metric (date_id, ft_html, ft_pdf, ft_total) VALUES(?, ?, ?, ?)";
-//
-//        try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryString)) {
-//            pstmt.setInt(1, lastDateId);
-//            pstmt.setString(2, ftHtmlValue);
-//            pstmt.setString(3, ftPdfValue);
-//            pstmt.setString(4, ftTotalValue);
-//
-//            pstmt.executeUpdate();
-//        }
-//        catch (SQLException ex) {
-//            System.out.println("3: " + ex.toString());
-//            return false;
-//        }
-//
-//        return true;
-//    }
 }
