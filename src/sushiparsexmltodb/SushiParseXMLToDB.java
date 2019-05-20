@@ -6,7 +6,6 @@
 package sushiparsexmltodb;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -20,7 +19,6 @@ public class SushiParseXMLToDB
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
         XmlHandler xmlHandler = new XmlHandler("output2019.xml");//"untXMLtest.xml");
         List<Customer> customers = xmlHandler.getCustomers();
         
@@ -47,7 +45,7 @@ public class SushiParseXMLToDB
 
         DatabaseHandler dbHandler = new DatabaseHandler();
         
-        //Insert on at a time
+        //Insert one at a time
 //        customers.get(0).getReportItems().forEach((reportItem) -> {
 //            if(counter.getAndIncrement() < 10)
 //            {

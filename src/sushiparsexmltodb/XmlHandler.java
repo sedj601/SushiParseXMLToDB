@@ -51,14 +51,15 @@ public class XmlHandler
 //            for (int i = 0; i < usageDataRange.getLength(); i++) {
 //                for (int t = 0; t < usageDataRange.item(i).getChildNodes().getLength(); t++) {
 //                    if (usageDataRange.item(i).getChildNodes().item(t).getNodeName().equals("ns3:Begin")) {
-//                        System.out.println("Begin: " + usageDataRange.item(i).getChildNodes().item(t).getTextContent());//Todo
+//                        System.out.println("Begin: " + usageDataRange.item(i).getChildNodes().item(t).getTextContent());
 //                    }
 //                    else if (usageDataRange.item(i).getChildNodes().item(t).getNodeName().equals("ns3:End")) {
-//                        System.out.println("End: " + usageDataRange.item(i).getChildNodes().item(t).getTextContent());//Todo
+//                        System.out.println("End: " + usageDataRange.item(i).getChildNodes().item(t).getTextContent());
 //                    }
 //
 //                }
 //            }
+
             NodeList customer = document.getElementsByTagName("Customer");
             for (int i = 0; i < customer.getLength(); i++) {
                 Customer customer1 = new Customer();
